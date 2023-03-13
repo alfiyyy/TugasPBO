@@ -2,7 +2,7 @@ package bangunruang;
 
 import bangundatar.Lingkaran;
 
-public class Kerucut extends Lingkaran {
+public class Kerucut extends Lingkaran implements TigaDimensi {
     protected double height;
 
     public Kerucut(double radius, double height) {
@@ -18,13 +18,14 @@ public class Kerucut extends Lingkaran {
         this.height = height;
     }
 
+    @Override
     public double getVolume() {
         return 1.0 / 3.0 * getArea() * height;
     }
 
+    @Override
     public double getSurfaceArea() {
         double slantHeight = Math.sqrt(height * height + super.getRadius() * super.getRadius());
         return Math.PI * super.getRadius() * slantHeight + getArea();
     }
 }
-

@@ -1,6 +1,6 @@
 package bangundatar;
 
-public class Lingkaran {
+public class Lingkaran implements DuaDimensi {
     protected double radius;
 
     public Lingkaran(double radius) {
@@ -15,6 +15,7 @@ public class Lingkaran {
         this.radius = radius;
     }
 
+    @Override
     public double getArea() {
         return Math.PI * radius * radius;
     }
@@ -23,6 +24,7 @@ public class Lingkaran {
         return Math.PI * r * r;
     }
 
+    @Override
     public double getCircumference() {
         return 2 * Math.PI * radius;
     }
