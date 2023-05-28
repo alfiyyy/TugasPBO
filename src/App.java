@@ -1,221 +1,133 @@
-import java.util.Scanner;
+import java.util.ArrayList;
+import java.util.Random;
 
+import Thread.ThreadBola;
+import Thread.ThreadJuringBola;
+import Thread.ThreadKeratanBola;
+import Thread.ThreadKerucut;
+import Thread.ThreadKerucutTerpancung;
+import Thread.ThreadLingkaran;
+import Thread.ThreadTabung;
+import Thread.ThreadTemberengBola;
 import bangundatar.*;
 import bangunruang.*;
 
 public class App {
-    static Scanner scanner = new Scanner(System.in);
 
     public static void main(String[] args) throws Exception {
-        int loop;
 
-        do {
-            System.out.print("\033[H\033[2J");
-            System.out.println("========================================");
-            System.out.println("Pilih Bangun Ruang atau Bangun Datar");
-            System.out.println("========================================");
-            System.out.println("1. Lingkaran");
-            System.out.println("2. Tabung");
-            System.out.println("3. Kerucut");
-            System.out.println("4. Kerucut Terpancung");
-            System.out.println("5. Bola");
-            System.out.println("6. Tembereng Bola");
-            System.out.println("7. Juring Bola");
-            System.out.println("8. Keratan Bola");
-            System.out.println("0. Keluar");
+        ArrayList<Lingkaran> lingkarans = generateLingkarans(200);
+        ArrayList<Tabung> tabungs = generateTabung(200);
+        ArrayList<Bola> bolas = generateBola(200);
+        ArrayList<Kerucut> kerucuts = generateKerucut(200);
+        ArrayList<KerucutTerpancung> kerucutTerpancungs = generateKerucutTerpancung(200);
+        ArrayList<JuringBola> juringBolas = generateJuringBola(200);
+        ArrayList<KeratanBola> keratanBolas = generateKeratanBola(200);
+        ArrayList<TemberengBola> temberengBolas = generateTemberengBola(200);
 
-            System.out.println("-------------------------------------");
-            System.out.print("Pilihan\t: ");
-            int pil = scanner.nextInt();
+        Thread threadLingkaran = new Thread(new ThreadLingkaran(lingkarans));
+        Thread threadTabung = new Thread(new ThreadTabung(tabungs));
+        Thread threadBola = new Thread(new ThreadBola(bolas));
+        Thread threadKerucut = new Thread(new ThreadKerucut(kerucuts));
+        Thread threadKerucutTerpancung = new Thread(new ThreadKerucutTerpancung(kerucutTerpancungs));
+        Thread threadJuringBola = new Thread(new ThreadJuringBola(juringBolas));
+        Thread threadKeratanBola = new Thread(new ThreadKeratanBola(keratanBolas));
+        Thread threadTemberengBola = new Thread(new ThreadTemberengBola(temberengBolas));
 
-            switch (pil) {
-                case 1:
-                    menuLingkaran();
-                    break;
+        threadLingkaran.start();
+        threadTabung.start();
+        threadBola.start();
+        threadKerucut.start();
+        threadKerucutTerpancung.start();
+        threadJuringBola.start();
+        threadKeratanBola.start();
+        threadTemberengBola.start();
 
-                case 2:
-                    menuTabung();
-
-                    break;
-
-                case 3:
-                    menuKerucut();
-
-                    break;
-
-                case 4:
-                    menuKerucutTerpancung();
-                    break;
-
-                case 5:
-                    menuBola();
-                    break;
-
-                case 6:
-                    menuTemberengBola();
-                    break;
-
-                case 7:
-                    menuJuringBola();
-                    break;
-                
-                case 8:
-                    menuKeratanBola();
-                    break;
-                    
-                case 0:
-                    System.out.println("\nexited...");
-                    System.exit(0);
-                    break;
-                default:
-                    break;
-            }
-            System.out.print("Ulangi? (1) ");
-            loop = scanner.nextInt();
-            Thread.sleep(700);
-
-        } while (loop==1);
-    
-
-        System.out.println("\nexited...");
 
     }
 
-    
-    private static void menuLingkaran() {
-        System.out.println("\033[H\033[2J");
-        System.out.println("===========================");
-        System.out.println("\tLingkaran");
-        System.out.println("===========================");
-        System.out.print("Masukan Jari-jari Lingkaran\t: ");
-        int radius = scanner.nextInt();
+    private static ArrayList<Lingkaran> generateLingkarans(int jumlah) {
+        ArrayList<Lingkaran> lingkarans = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < jumlah; i++) {
+            Lingkaran lingkaran = new Lingkaran(random.nextInt(100));
+            lingkarans.add(lingkaran);
+        }
+        return lingkarans;
 
-        Lingkaran lingkaran = new Lingkaran(radius); // base Cirlce
-        System.out.println("----------------------------------------------");
-        System.out.printf("Luas Lingkaran\t\t\t: %.2f\n", lingkaran.getArea());
-        System.out.printf("Keliling Lingkaran\t\t: %.2f\n", lingkaran.getCircumference());
-        
     }
 
-    private static void menuTabung() {
-        System.out.println("\033[H\033[2J");
-        System.out.println("===========================");
-        System.out.println("\tTabung");
-        System.out.println("===========================");
-        System.out.print("Masukan Jari-jari Tabung\t: ");
-        int radius = scanner.nextInt();
-        System.out.print("Masukan Tinggi Tabung\t: ");
-        int height = scanner.nextInt();
+    private static ArrayList<Bola> generateBola(int jumlah) {
+        ArrayList<Bola> bolas = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < jumlah; i++) {
+            Bola bola = new Bola(random.nextInt(100));
+            bolas.add(bola);
+        }
+        return bolas;
 
-        Tabung tabung = new Tabung(radius, height); // base Cirlce
-        System.out.println("----------------------------------------------");
-        System.out.printf("Luas Permukaan Tabung\t: %.2f\n", tabung.getSurfaceArea());
-        System.out.printf("Volume Tabung\t\t: %.2f\n", tabung.getVolume());
-        
     }
 
-    private static void menuKerucut() {
-        System.out.println("\033[H\033[2J");
-        System.out.println("===========================");
-        System.out.println("\tKerucut");
-        System.out.println("===========================");
-        System.out.print("Masukan Jari-jari Kerucut\t: ");
-        int radius = scanner.nextInt();
-        System.out.print("Masukan Tinggi Kerucut\t: ");
-        int height = scanner.nextInt();
+    private static ArrayList<Tabung> generateTabung(int jumlah) {
+        ArrayList<Tabung> tabungs = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < jumlah; i++) {
+            Tabung tabung = new Tabung(random.nextDouble(100), random.nextDouble(20));
+            tabungs.add(tabung);
+        }
+        return tabungs;
 
-        Kerucut kerucut = new Kerucut(radius, height); // base Cirlce
-        System.out.println("----------------------------------------------");
-        System.out.printf("Luas Permukaan Kerucut\t: %.2f\n", kerucut.getSurfaceArea());
-        System.out.printf("Volume Kerucut\t\t: %.2f\n", kerucut.getVolume());
-        
     }
 
-    private static void menuKerucutTerpancung() {
-        System.out.println("\033[H\033[2J");
-        System.out.println("===========================");
-        System.out.println("\tKerucut Terpancung");
-        System.out.println("===========================");
-        System.out.print("Masukan Jari-jari Alas Atas Kerucut Terpancung\t: ");
-        int radius = scanner.nextInt();
-        System.out.print("Masukan Jari-jari Alas Bawah Kerucut Terpancung\t: ");
-        int topRadius = scanner.nextInt();
-        System.out.print("Masukan Tinggi Kerucut Terpancung\t: ");
-        int height = scanner.nextInt();
-
-        KerucutTerpancung kerucutTerpancung = new KerucutTerpancung(radius, height, topRadius); // base Cirlce
-        System.out.println("----------------------------------------------");
-        System.out.printf("Luas Permukaan Kerucut Terpancung\t: %.2f\n", kerucutTerpancung.getSurfaceArea());
-        System.out.printf("Volume Kerucut Terpancung\t\t: %.2f\n", kerucutTerpancung.getVolume());
-        
+    private static ArrayList<Kerucut> generateKerucut(int jumlah) {
+        ArrayList<Kerucut> kerucuts = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < jumlah; i++) {
+            Kerucut kerucut = new Kerucut(random.nextDouble(100), random.nextDouble(20));
+            kerucuts.add(kerucut);
+        }
+        return kerucuts;
     }
 
-    private static void menuBola() {
-        System.out.println("\033[H\033[2J");
-        System.out.println("===========================");
-        System.out.println("\tBola");
-        System.out.println("===========================");
-        System.out.print("Masukan Jari-jari Bola\t: ");
-        int radius = scanner.nextInt();
-
-        Bola bola = new Bola(radius); // base Cirlce
-        System.out.println("----------------------------------------------");
-        System.out.printf("Luas Permukaan Bola\t: %.2f\n", bola.getSurfaceArea());
-        System.out.printf("Volume Bola\t\t: %.2f\n", bola.getVolume());
-        
+    private static ArrayList<JuringBola> generateJuringBola(int jumlah) {
+        ArrayList<JuringBola> juringBolas = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < jumlah; i++) {
+            JuringBola juringBola = new JuringBola(random.nextDouble(100), random.nextDouble(20));
+            juringBolas.add(juringBola);
+        }
+        return juringBolas;
     }
 
-    private static void menuTemberengBola() {
-        System.out.println("\033[H\033[2J");
-        System.out.println("===========================");
-        System.out.println("\tTembereng Bola");
-        System.out.println("===========================");
-        System.out.print("Masukan Jari-jari Bola\t: ");
-        int radius = scanner.nextInt();
-        System.out.print("Masukan Tinggi Tembereng: ");
-        int height = scanner.nextInt();
-
-        TemberengBola temberengBola = new TemberengBola(radius, height); // base Cirlce
-        System.out.println("----------------------------------------------");
-        System.out.printf("Luas Permukaan Tembereng Bola\t: %.2f\n", temberengBola.getSurfaceArea());
-        System.out.printf("Volume Tembereng Bola\t\t: %.2f\n", temberengBola.getVolume());
-        
+    private static ArrayList<KeratanBola> generateKeratanBola(int jumlah) {
+        ArrayList<KeratanBola> keratanBolas = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < jumlah; i++) {
+            KeratanBola keratanBola = new KeratanBola(random.nextDouble(50), random.nextDouble(50),
+                    random.nextDouble(20));
+            keratanBolas.add(keratanBola);
+        }
+        return keratanBolas;
     }
 
-    private static void menuJuringBola() {
-        System.out.println("\033[H\033[2J");
-        System.out.println("===========================");
-        System.out.println("\tJuring Bola");
-        System.out.println("===========================");
-        System.out.print("Masukan Jari-jari Bola\t: ");
-        int radius = scanner.nextInt();
-        System.out.print("Masukan Tinggi Juring\t: ");
-        int height = scanner.nextInt();
+    private static ArrayList<TemberengBola> generateTemberengBola(int jumlah) {
+        ArrayList<TemberengBola> temberengBolas = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < jumlah; i++) {
+            TemberengBola temberengBola = new TemberengBola(random.nextDouble(100), random.nextDouble(20));
+            temberengBolas.add(temberengBola);
+        }
+        return temberengBolas;
+    }
 
-        JuringBola juringBola = new JuringBola(radius, height); // base Cirlce
-        System.out.println("----------------------------------------------");
-        System.out.printf("Luas Permukaan Juring Bola\t: %.2f\n", juringBola.getSurfaceArea());
-        System.out.printf("Volume Juring Bola\t\t: %.2f\n", juringBola.getVolume());
-        
+    private static ArrayList<KerucutTerpancung> generateKerucutTerpancung(int jumlah) {
+        ArrayList<KerucutTerpancung> kerucutTerpancungs = new ArrayList<>();
+        Random random = new Random();
+        for (int i = 0; i < jumlah; i++) {
+            KerucutTerpancung kerucutTerpancung = new KerucutTerpancung(random.nextDouble(50), random.nextDouble(20), random.nextDouble(40));
+            kerucutTerpancungs.add(kerucutTerpancung);
+        }
+        return kerucutTerpancungs;
     }
-    
-    private static void menuKeratanBola(){
-        System.out.println("\033[H\033[2J");
-        System.out.println("===========================");
-        System.out.println("\tKeratan Bola");
-        System.out.println("===========================");
-        System.out.print("Masukan Jari-jari Alas Bawah Bola\t: ");
-        int radius = scanner.nextInt();
-        System.out.print("Masukan Jari-jari Alas Atas Bola\t: ");
-        int topRadius = scanner.nextInt();
-        System.out.print("Masukan Tinggi Antara Kedua Alas\t: ");
-        int height = scanner.nextInt();
-    
-        KeratanBola keratanBola = new KeratanBola(radius,topRadius, height); // base Cirlce
-        System.out.println("----------------------------------------------");
-        System.out.printf("Luas Permukaan Keratan Bola\t: %.2f\n", keratanBola.getSurfaceArea());
-        System.out.printf("Volume Keratan Bola\t\t: %.2f\n", keratanBola.getVolume());
-        System.out.printf("Jari-Jari Bola\t\t: %.2f\n", keratanBola.getSpehreRadius());
-        
-    }
+
 }
